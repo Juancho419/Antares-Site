@@ -29,6 +29,16 @@
 <link rel="icon" type="image/png" sizes="512x512" href="logo.png" />
   <style>html{scroll-behavior:smooth}</style>
 </head>
+
+<script>
+  const btn = document.querySelector('.nav-toggle');
+  const nav = document.getElementById('primary-nav');
+  btn?.addEventListener('click', () => {
+    const open = nav.classList.toggle('open');
+    btn.setAttribute('aria-expanded', open);
+  });
+</script>
+
 <body>
   <header class="site-header">
     <div class="container">
@@ -36,7 +46,10 @@
         <img class="logo-img" src="logo.png" alt="ANTARES logo" width="36" height="36">
         <span class="brand-name">ANTARES</span>
       </a>
-      <nav class="nav" aria-label="Principal">
+
+      <button class="nav-toggle" aria-expanded="false" aria-controls="primary-nav" aria-label="Abrir menú">☰</button>
+
+      <nav id="primary-nav" class="nav" aria-label="Principal">
         <a href="#sobre-mi">Sobre mí</a>
         <a href="#servicios">Servicios</a>
         <a href="#metodo">Método</a>
@@ -44,6 +57,7 @@
       </nav>
     </div>
   </header>
+
 
   <main>
     <section class="hero" id="inicio">
