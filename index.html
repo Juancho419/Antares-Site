@@ -31,28 +31,36 @@
     const btn = document.querySelector('.nav-toggle');
     const nav = document.getElementById('primary-nav');
     const coffee = document.querySelector('.icon-tip.coffee');
-    let tipTimer;
 
-    function showCoffeeTip(){
+    let tipDelayTimer, tipHideTimer;
+
+    function showCoffeeTipDelayed() {
       if (!coffee) return;
-      coffee.classList.add('tip-visible');
-      clearTimeout(tipTimer);
-      tipTimer = setTimeout(() => coffee.classList.remove('tip-visible'), 3000);
+      clearTimeout(tipDelayTimer); clearTimeout(tipHideTimer);
+      tipDelayTimer = setTimeout(() => {
+        coffee.classList.add('tip-visible');
+        tipHideTimer = setTimeout(() => coffee.classList.remove('tip-visible'), 3000); // 3s visible
+      }, 2000); // espera 2s antes de mostrar
     }
 
     btn?.addEventListener('click', function () {
       const open = nav.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
-      // En móvil, al abrir, mostramos el tip automáticamente
       if (open && window.matchMedia('(max-width: 768px)').matches) {
-        showCoffeeTip();
+        showCoffeeTipDelayed();
+      } else {
+        coffee?.classList.remove('tip-visible');
+        clearTimeout(tipDelayTimer); clearTimeout(tipHideTimer);
       }
     });
 
-    // Si tocan la tacita, ocultamos el tip
-    coffee?.addEventListener('click', () => coffee.classList.remove('tip-visible'));
+    coffee?.addEventListener('click', () => {
+      coffee.classList.remove('tip-visible');
+      clearTimeout(tipDelayTimer); clearTimeout(tipHideTimer);
+    });
   });
 </script>
+
 
 
 
