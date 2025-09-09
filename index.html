@@ -28,19 +28,28 @@
 
 <script>
   document.addEventListener('DOMContentLoaded', function () {
+    const header = document.querySelector('.site-header');
     const btn = document.querySelector('.nav-toggle');
     const nav = document.getElementById('primary-nav');
     const coffee = document.querySelector('.icon-tip.coffee');
 
-    let tipDelayTimer, tipHideTimer;
+    // --- 1) Marca compacta al hacer scroll ---
+    function applyCompact(){
+      const compact = window.scrollY > 10;
+      header?.classList.toggle('compact', compact);
+    }
+    applyCompact();
+    window.addEventListener('scroll', applyCompact, { passive:true });
 
+    // --- 2) Tooltip móvil: aparece tras 1s, visible 3s ---
+    let tipDelayTimer, tipHideTimer;
     function showCoffeeTipDelayed() {
       if (!coffee) return;
       clearTimeout(tipDelayTimer); clearTimeout(tipHideTimer);
       tipDelayTimer = setTimeout(() => {
         coffee.classList.add('tip-visible');
         tipHideTimer = setTimeout(() => coffee.classList.remove('tip-visible'), 3000); // 3s visible
-      }, 2000); // espera 2s antes de mostrar
+      }, 1000); // 1s de espera antes de mostrar
     }
 
     btn?.addEventListener('click', function () {
@@ -60,9 +69,6 @@
     });
   });
 </script>
-
-
-
 
 <body>
   <header class="site-header">
