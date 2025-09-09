@@ -260,4 +260,40 @@ a{color:inherit;text-decoration:none}
       inset 0 1px 2px rgba(0,0,0,.45);
   }
 }
+/* Marca grande al cargar; compacta al hacer scroll */
+.site-header .container{ padding:18px 20px; transition:padding .2s ease }
+.site-header .logo-img{
+  width:56px; height:56px; border-radius:12px;
+  transition:width .2s ease, height .2s ease, border-radius .2s ease;
+}
+.site-header .brand-name{ font-size:24px; transition:font-size .2s ease }
 
+/* Estado compacto (al hacer scroll) */
+.site-header.compact .container{ padding:12px 16px }
+.site-header.compact .logo-img{ width:36px; height:36px; border-radius:10px }
+.site-header.compact .brand-name{ font-size:18px }
+
+/* Ajuste en móviles */
+@media (max-width:768px){
+  .site-header .logo-img{ width:48px; height:48px }
+  .site-header .brand-name{ font-size:20px }
+  .site-header.compact .logo-img{ width:32px; height:32px }
+  .site-header.compact .brand-name{ font-size:18px }
+}
+
+/* Desktop: el tooltip de la tacita va DEBAJO y centrado */
+@media (min-width: 769px){
+  .icon-tip::after{
+    top: calc(100% + 8px);   /* debajo del botón */
+    bottom: auto;            /* anula la posición arriba */
+    left: 50%;
+    right: auto;
+    transform: translate(-50%, -4px);  /* animación suave hacia arriba */
+    text-align: center;
+    z-index: 20;
+  }
+  .icon-tip:hover::after{
+    opacity: 1;
+    transform: translate(-50%, 0);
+  }
+}
