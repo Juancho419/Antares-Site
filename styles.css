@@ -35,6 +35,7 @@ a{color:inherit;text-decoration:none}
 }
 .brand-name{font-weight:700;letter-spacing:.6px}
 
+/* Nav */
 .nav{display:flex;gap:14px;align-items:center}
 .nav a{padding:8px 10px;border-radius:10px}
 .nav a:hover{background:#0e1217}
@@ -104,3 +105,22 @@ a{color:inherit;text-decoration:none}
 /* Footer */
 .site-footer{border-top:1px solid #111;background:#0b0d10}
 .site-footer .container{padding:20px;text-align:center;color:#96a1af}
+
+/* --- Mobile header fix: apilar nav bajo la marca --- */
+@media (max-width: 768px){
+  .site-header .container{
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    row-gap: 8px;
+  }
+  .brand{ flex: 1 1 100%; }
+  .nav{
+    flex: 1 1 100%;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 8px;
+    justify-content: space-between;
+  }
+  .nav a{ padding: 8px 10px; }
+  .brand-name{ font-size: 18px; }
+}
