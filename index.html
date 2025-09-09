@@ -30,13 +30,30 @@
   document.addEventListener('DOMContentLoaded', function () {
     const btn = document.querySelector('.nav-toggle');
     const nav = document.getElementById('primary-nav');
-    if (!btn || !nav) return;
-    btn.addEventListener('click', function () {
+    const coffee = document.querySelector('.icon-tip.coffee');
+    let tipTimer;
+
+    function showCoffeeTip(){
+      if (!coffee) return;
+      coffee.classList.add('tip-visible');
+      clearTimeout(tipTimer);
+      tipTimer = setTimeout(() => coffee.classList.remove('tip-visible'), 3000);
+    }
+
+    btn?.addEventListener('click', function () {
       const open = nav.classList.toggle('open');
       btn.setAttribute('aria-expanded', open);
+      // En móvil, al abrir, mostramos el tip automáticamente
+      if (open && window.matchMedia('(max-width: 768px)').matches) {
+        showCoffeeTip();
+      }
     });
+
+    // Si tocan la tacita, ocultamos el tip
+    coffee?.addEventListener('click', () => coffee.classList.remove('tip-visible'));
   });
 </script>
+
 
 
 <body>
@@ -55,11 +72,13 @@
         <a href="#metodo">Método</a>
         <a href="#contacto" class="btn">Hablemos</a>
         <!-- Pestaña con tacita y tooltip -->
-        <a href="#contacto"
-           class="icon-tip"
-           aria-label="¿nos tomamos un cafecito y hablamos?"
-           data-tip="¿nos tomamos un cafecito y hablamos?"
-           title="¿nos tomamos un cafecito y hablamos?">☕</a>
+        <a href="https://calendly.com/holasoyantares/30min"
+            class="icon-tip coffee"
+            aria-label="¿Nos tomamos un cafecito y te conozco?"
+            data-tip="¿Nos tomamos un cafecito y te conozco?"
+            title="¿Nos tomamos un cafecito y te conozco?"
+            target="_blank" rel="noopener">☕</a>
+            </a>
       </nav>
     </div>
   </header>

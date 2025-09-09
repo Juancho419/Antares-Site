@@ -150,3 +150,81 @@ a{color:inherit;text-decoration:none}
   }
   .nav.open{ display:flex; } /* visible al abrir */
 }
+/* Nube para el menú (contraste suave) */
+.nav{
+  display:flex; gap:14px; align-items:center;
+  background:var(--elev);             /* azul más claro que el fondo */
+  border:1px solid #1a2230;
+  border-radius:14px;
+  padding:6px 8px;
+  box-shadow:var(--shadow);
+}
+
+/* Pestañita de la tacita + tooltip */
+.icon-tip{
+  position:relative;
+  display:grid; place-items:center;
+  min-width:36px; height:36px;
+  padding:0 10px;
+  border-radius:10px;
+  border:1px solid #1a2230;
+  background:transparent;
+  font-size:18px; line-height:1;
+  transition:.2s ease;
+}
+.icon-tip:hover{ background:#0f141a }
+
+.icon-tip::after{
+  content:attr(data-tip);
+  position:absolute;
+  bottom:calc(100% + 8px);
+  right:0;
+  background:#0f141a;
+  color:var(--text);
+  padding:6px 8px;
+  border-radius:8px;
+  border:1px solid #1a2230;
+  white-space:nowrap;
+  box-shadow:var(--shadow);
+  opacity:0;
+  transform:translateY(4px);
+  pointer-events:none;
+  transition:opacity .15s ease, transform .15s ease;
+}
+.icon-tip:hover::after{ opacity:1; transform:none }
+
+/* Móvil: conserva la nube y el colapso */
+@media (max-width:768px){
+  .nav{ display:none; width:100%; flex-direction:column; gap:8px; margin-top:6px; padding:10px }
+  .nav.open{ display:flex }
+}
+/* Botón café: azul metalizado */
+.icon-tip.coffee{
+  min-width:40px; height:40px; padding:0 12px;
+  color:#fff;
+  background:linear-gradient(180deg,#2a7cc3 0%, #1b6fb5 48%, #0e3b5a 100%);
+  border:1px solid #0e3b5a;
+  border-radius:10px;
+  box-shadow:
+    0 6px 16px rgba(0,0,0,.35),         /* sombra exterior */
+    inset 0 1px 0 rgba(255,255,255,.18),/* brillo superior */
+    inset 0 -1px 0 rgba(0,0,0,.35);     /* sombreado base */
+  transition:transform .15s ease, box-shadow .15s ease, background .2s ease;
+}
+.icon-tip.coffee:hover{
+  background:linear-gradient(180deg,#36b4d8 0%, #2299d1 48%, #0e3b5a 100%);
+  transform:translateY(-1px);
+  box-shadow:
+    0 10px 22px rgba(0,0,0,.4),
+    inset 0 1px 0 rgba(255,255,255,.22),
+    inset 0 -1px 0 rgba(0,0,0,.35);
+}
+.icon-tip.coffee:active{
+  transform:translateY(0);
+  box-shadow:
+    0 4px 10px rgba(0,0,0,.35),
+    inset 0 1px 2px rgba(0,0,0,.45);
+}
+/* Mostrar el tooltip por clase (móvil) */
+.icon-tip.tip-visible::after{ opacity:1; transform:none }
+
